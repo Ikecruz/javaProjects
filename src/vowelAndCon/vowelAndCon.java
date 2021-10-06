@@ -11,4 +11,7 @@ package vowelAndCon;
  */
 public class vowelAndCon {
     
+    public static void main(String[] args) {
+        System.out.println("Hello");
+    }
 }

@@ -55,7 +55,7 @@ public class ATM {
         long number = scan.nextLong();
         System.out.println("");
 
-        if (String.valueOf(number).length() > 15) {
+        if ((String.valueOf(number).length() > 15) || (String.valueOf(number).length() < 9)) {
             System.out.println("Invalid Mobile Number");
             System.out.println("");
             rechargeMobile();
@@ -69,11 +69,11 @@ public class ATM {
             System.out.println("Recharge Amount is invalid");
             System.out.println("");
             rechargeMobile();
+        } else{
+            balance -= amount;
+            System.out.println(amount + " Airtime recharged for " + " " + countryCode + " " + number);
+            System.out.println("");
         }
-
-        balance -= amount;
-        System.out.println(amount + " Airtime recharged for " + " " + countryCode + " " + number);
-        System.out.println("");
 
     }
 
@@ -100,8 +100,10 @@ public class ATM {
 
     void Continue() {
         System.out.println("Do you want to perform another Transaction?");
-        System.out.println("1: Yes");
-        System.out.println("2: No");
+            System.out.print("[1] Yes");
+            System.out.print("         ");
+            System.out.print("[2] No");
+            System.out.println("");
         int selector = scan.nextInt();
         System.out.println("");
 
