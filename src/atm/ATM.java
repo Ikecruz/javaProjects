@@ -18,6 +18,27 @@ public class ATM {
     boolean notDone = true;
 
     Scanner scan = new Scanner(System.in);
+    
+
+    String formatPhone(String number) {
+        String newNumber;
+
+        String countryCode = number.substring(0, 4);
+        if (countryCode.equals("+234")) {
+            String first = number.substring(4, 5);
+
+            if ((first.equals("7")) || (first.equals("8")) || (first.equals("9"))) {
+                newNumber = number;
+            } else {
+                newNumber = "+234" + number.substring(5);
+            }
+
+        } else {
+            newNumber = "+234" + number.substring(1);
+        }
+
+        return newNumber;
+    }
 
     void checkBalance() {
         System.out.println("Current Account Balance: " + balance);
@@ -41,25 +62,20 @@ public class ATM {
     }
 
     void rechargeMobile() {
-        System.out.println("Enter Country Code: ");
-        String countryCode = scan.next();
-        System.out.println("");
-
-        if ((countryCode.length() < 3) || (countryCode.charAt(0) != '+')) {
-            System.out.println("Invalid Country Code");
-            System.out.println("");
-            rechargeMobile();
-        }
 
         System.out.println("Enter Mobile Number:");
-        long number = scan.nextLong();
+        String number = scan.next();
         System.out.println("");
 
-        if ((String.valueOf(number).length() > 15) || (String.valueOf(number).length() < 9)) {
-            System.out.println("Invalid Mobile Number");
+        if ((number.length() < 11)) {
+            System.out.println("/////////////////////////////");
+            System.out.println("//  Invalid Mobile Number  //");
+            System.out.println("/////////////////////////////");
             System.out.println("");
             rechargeMobile();
         }
+        
+        number = formatPhone(number);
 
         System.out.println("Enter Recharge Amount:");
         double amount = scan.nextInt();
@@ -71,7 +87,7 @@ public class ATM {
             rechargeMobile();
         } else{
             balance -= amount;
-            System.out.println(amount + " Airtime recharged for " + " " + countryCode + " " + number);
+            System.out.println(amount + " Airtime recharged for "  + number);
             System.out.println("");
         }
 
@@ -84,26 +100,31 @@ public class ATM {
 
         if (amount > 0) {
             if ((balance - 1000) < amount) {
-                System.out.println("Insufficent Balance");
+                System.out.println("///////////////////////////");
+                System.out.println("//  Insufficent Balance  //");
+                System.out.println("///////////////////////////");
                 System.out.println("");
             } else {
                 balance -= amount;
-                System.out.println(amount + " Withdrewed");
+                System.out.println("***  "+ amount + " Withdrewed  ***");
                 System.out.println("");
             }
         } else {
-            System.out.println("Invalid input");
+            System.out.println("/////////////////////");
+            System.out.println("//  Invalid input  //");
+            System.out.println("/////////////////////");
             System.out.println("");
             withdraw();
         }
     }
 
     void Continue() {
-        System.out.println("Do you want to perform another Transaction?");
-            System.out.print("[1] Yes");
-            System.out.print("         ");
-            System.out.print("[2] No");
-            System.out.println("");
+        System.out.println("***   Do you want to perform another Transaction?   ***");
+        System.out.println("");
+        System.out.print("[1] Yes");
+        System.out.print("         ");
+        System.out.print("[2] No");
+        System.out.println("");
         int selector = scan.nextInt();
         System.out.println("");
 
@@ -115,7 +136,9 @@ public class ATM {
             System.out.println("**    Thanks for choosing CruzBank    **");
             System.out.println("****************************************");
         } else {
-            System.out.println("Invalid Selector");
+            System.out.println("////////////////////////////");
+            System.out.println("///   Invalid Selector   ///");
+            System.out.println("////////////////////////////");
             Continue();
         }
     }
@@ -125,21 +148,23 @@ public class ATM {
         System.out.println("**    Welcome To CruzBank    **");
         System.out.println("*******************************");
         
-        System.out.println("Please enter Pin:");
+        System.out.println("**     Please enter Pin:     **");
         int pinInput = scan.nextInt();
         System.out.println("");
 
         if (pinInput != pin) {
-            System.out.println("Invalid Pin");
+            System.out.println("//////////////////////////");
+            System.out.println("///    Invalid Pin     ///");
+            System.out.println("//////////////////////////");
             System.out.println("");
             atmMachine();
         }
         
-        System.out.println("*******************************");
-        System.out.println("**       Yea You're In       **");
-        System.out.println("*******************************");
-        System.out.println("What would you like to do?");
-        System.out.println("Input Number to select");
+        System.out.println("***********************************");
+        System.out.println("**       Welcome You're In       **");
+        System.out.println("***********************************");
+        System.out.println("***   What would you like to do?   ***");
+        System.out.println("***   Input Number to select   ***");
         System.out.println("");
 
         while (notDone) {
@@ -147,11 +172,14 @@ public class ATM {
             System.out.print("         ");
             System.out.print("[2] Deposit Cash");
             System.out.println("");
+            System.out.println("");
             System.out.print("[3] Withdraw Cash");
             System.out.print("         ");
             System.out.print("[4] Recharge Mobile");
             System.out.println("");
+            System.out.println("");
             System.out.print("[5] Exit");
+            System.out.println("");
             System.out.println("");
 
             int selector = scan.nextInt();
@@ -175,7 +203,9 @@ public class ATM {
                 System.out.println("****************************************");
                 notDone = false;
             } else {
-                System.out.println("Invalid Selector");
+                System.out.println("//////////////////////////");
+                System.out.println("//   Invalid Selector   //");
+                System.out.println("//////////////////////////");
                 
             }
         }
@@ -192,8 +222,8 @@ public class ATM {
         try {
             atm.atmMachine();
         } catch (java.util.InputMismatchException e) {
-            System.out.println("Please Make Sure all Inputs are Correct");
-            System.out.println("You've been logged out");
+            System.out.println("///   Please Make Sure all Inputs are Correct   ///");
+            System.out.println("///   You've been logged out   ///");
         }
     }
 
