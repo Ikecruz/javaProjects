@@ -19,7 +19,7 @@ public class ATM {
 
     Scanner scan = new Scanner(System.in);
     
-
+    //Format phone number
     String formatPhone(String number) {
         String newNumber;
 
